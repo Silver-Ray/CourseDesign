@@ -1,0 +1,19 @@
+__pycache__/**
+**/__pycache__/**
+
+# /.gitignore
+/courceDesign
+/.idea
+/.vscode
+
+/data/*
+
+# For Test
+/sentiment_analysis/**
+/sentiment_analysis_albert/**
+/sentiment_analysis_bert/**
+/sentiment_analysis_bayes/**
+/sentiment_analysis_dict/**
+
+/nlp_na.py
+/requirements.txt
