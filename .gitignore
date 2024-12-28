@@ -10,3 +10,5 @@ __pycache__/**
 
 /nlp_na.py
 /requirements.txt
+
+config.conf
