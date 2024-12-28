@@ -90,10 +90,14 @@ class WeiboComment:
                     continue
                 if df_temp.empty:
                     continue
-
-                # self.data = pd.concat(
-                #     [self.data, df_temp[self.columns]], ignore_index=True
-                # )
+                df_temp["created_at"] = pd.to_datetime(
+                    df_temp["created_at"], format="%a %b %d %H:%M:%S %z %Y"
+                ).dt.strftime("%Y-%m-%d %H:%M:%S")
+                # NOTE: 强制添加name列
+                df_temp["name"] = df_temp["user"].apply(lambda x: x["screen_name"])
+                self.data = pd.concat(
+                    [self.data, df_temp[["name"] + self.columns]], ignore_index=True
+                )
                 params["max_id"] = json_data["max_id"]
                 sleep(self.sleep_time)
 

@@ -7,15 +7,16 @@
 """
 import os
 import sys
-import yaml
 import pandas as pd
 import re
 
+
 ROOT_DIR: str = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append(ROOT_DIR)
+import config
 
-with open(os.path.join(ROOT_DIR, "config.yaml"), "r") as f:
-    data_folder: str = yaml.safe_load(f)["spider"]["config"]["data_folder"]
+config = config.Config()
+data_folder: str = config.get_config("spider", "data_folder")
 
 DATA_DIR: str = os.path.join(ROOT_DIR, data_folder)
 
@@ -77,4 +78,4 @@ if __name__ == "__main__":
     comment_filter = CommentFilter("test.csv")
     comment_filter.cn_emoji_filter()
     comment_filter.symbol_emoji_filter()
-    comment_filter.save_filtered("filtered_test.csv")
+    comment_filter.save_filtered("filtered_test1228.csv")
