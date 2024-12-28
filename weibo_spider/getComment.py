@@ -16,14 +16,14 @@ from weibo_spider.weiboMID import url_to_mid
 
 class WeiboComment:
     def __init__(
-            self,
-            cookie: str,
-            referer: str,
-            post_url: str,
-            data_folder: str = 'data',
-            times: int = 10,
-            sleep_time: float = 1,
-            columns: list = None,
+        self,
+        cookie: str,
+        referer: str,
+        post_url: str,
+        data_folder: str = "data",
+        times: int = 10,
+        sleep_time: float = 1,
+        columns: list = None,
     ):
         if columns is None:
             columns = ["created_at", "id", "text_raw", "source"]
@@ -91,26 +91,28 @@ class WeiboComment:
                 if df_temp.empty:
                     continue
 
-                self.data = pd.concat(
-                    [self.data, df_temp[self.columns]], ignore_index=True
-                )
+                # self.data = pd.concat(
+                #     [self.data, df_temp[self.columns]], ignore_index=True
+                # )
                 params["max_id"] = json_data["max_id"]
                 sleep(self.sleep_time)
 
     def save_comment(self, file_name: str) -> None:
-        path = os.path.join(os.path.dirname(os.path.dirname(__file__)), self.data_folder)
+        path = os.path.join(
+            os.path.dirname(os.path.dirname(__file__)), self.data_folder
+        )
         if not os.path.exists(path):
             os.makedirs(path)
         file_name = os.path.join(path, file_name)
         self.data.to_csv(file_name, index=False, encoding="utf-8-sig")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     # 用户身份信息
-    cookie = 'SCF=ApEj9sNUAs6Q6qECaLgUkAS9qE_l1245d4cUSrxtG-DNdgPb6Lpn1-Ww_dcHx9oVkvgb03t5_D0TKyJLZPnokV8.; SINAGLOBAL=6502505958420.25.1729328476798; SUBP=0033WrSXqPxfM725Ws9jqgMF55529P9D9W5S.77Uc_09SwMjB2bmVC6q5JpX5KMhUgL.FoMNSoMpSo27SK22dJLoIp7LxKML1KBLBKnLxKqL1hnLBoMNS0qNeKqpeh-p; ULV=1732603224517:6:4:2:1597940990394.8838.1732603224421:1732018418082; XSRF-TOKEN=UDYUlkcbUKVQnrjn1A8_9Zcf; ALF=1735382880; SUB=_2A25KTDoPDeRhGeFJ7VUQ9i_Mzj2IHXVpIDPHrDV8PUJbkNAGLRPjkW1Nf05FtxQIFN41IyBPJvPPvureiiGIkTNJ; WBPSESS=CIq1nOqC6X2VXYb4WSS3wMMZgAxDuEFKpcViCkzq5bBMgc2xrKrIuhLrc3ODgw3JL4jwW1LKp5rEzRjFeETwq8J33BnbtFaVvVMGcSczZ6IqPSkIF1fdbjfNUlNwokISvnGPewU0sg0QAztjGus7mA=='
+    cookie = "SCF=ApEj9sNUAs6Q6qECaLgUkAS9qE_l1245d4cUSrxtG-DNdgPb6Lpn1-Ww_dcHx9oVkvgb03t5_D0TKyJLZPnokV8.; SINAGLOBAL=6502505958420.25.1729328476798; SUBP=0033WrSXqPxfM725Ws9jqgMF55529P9D9W5S.77Uc_09SwMjB2bmVC6q5JpX5KMhUgL.FoMNSoMpSo27SK22dJLoIp7LxKML1KBLBKnLxKqL1hnLBoMNS0qNeKqpeh-p; ULV=1732603224517:6:4:2:1597940990394.8838.1732603224421:1732018418082; XSRF-TOKEN=UDYUlkcbUKVQnrjn1A8_9Zcf; ALF=1735382880; SUB=_2A25KTDoPDeRhGeFJ7VUQ9i_Mzj2IHXVpIDPHrDV8PUJbkNAGLRPjkW1Nf05FtxQIFN41IyBPJvPPvureiiGIkTNJ; WBPSESS=CIq1nOqC6X2VXYb4WSS3wMMZgAxDuEFKpcViCkzq5bBMgc2xrKrIuhLrc3ODgw3JL4jwW1LKp5rEzRjFeETwq8J33BnbtFaVvVMGcSczZ6IqPSkIF1fdbjfNUlNwokISvnGPewU0sg0QAztjGus7mA=="
     # 防盗链
-    referer = 'https://weibo.com/7724913317/P2iofcS15'
-    post_url = 'https://weibo.com/7724913317/P2iofcS15'
+    referer = "https://weibo.com/7724913317/P2iofcS15"
+    post_url = "https://weibo.com/7724913317/P2iofcS15"
 
     comment = WeiboComment(cookie, referer, post_url, times=200)
     comment.get_comment()

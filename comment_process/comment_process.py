@@ -14,14 +14,19 @@ import re
 ROOT_DIR: str = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append(ROOT_DIR)
 
-with open(os.path.join(ROOT_DIR, 'config.yaml'), 'r') as f:
-    data_folder: str = yaml.safe_load(f)['spider']['config']['data_folder']
+with open(os.path.join(ROOT_DIR, "config.yaml"), "r") as f:
+    data_folder: str = yaml.safe_load(f)["spider"]["config"]["data_folder"]
 
 DATA_DIR: str = os.path.join(ROOT_DIR, data_folder)
 
 
 class CommentFilter:
-    def __init__(self, file_name: str, is_filter_cn_emoji: bool = True, is_filter_symbol_emoji: bool = True):
+    def __init__(
+        self,
+        file_name: str,
+        is_filter_cn_emoji: bool = True,
+        is_filter_symbol_emoji: bool = True,
+    ):
         self.file_name: str = file_name
         self.data: pd.DataFrame = pd.read_csv(os.path.join(DATA_DIR, file_name))
         self.is_filter_cn_emoji: bool = is_filter_cn_emoji
@@ -31,15 +36,23 @@ class CommentFilter:
         """
         中文表情过滤，删除text_raw中的中文表情([any])
         """
-        self.data['text_raw'] = self.data['text_raw'].apply(lambda x: re.sub(r'\[.*?\]', '', x))
+        self.data["text_raw"] = self.data["text_raw"].apply(
+            lambda x: re.sub(r"\[.*?\]", "", x)
+        )
 
     def symbol_emoji_filter(self) -> None:
         """
         符号表情过滤，删除text_raw中的符号表情
         """
         filter_inst = re.compile(
-            u'['u'\U0001F300-\U0001F64F' u'\U0001F680-\U0001F6FF' u'\u2600-\u2B55 \U00010000-\U0010ffff]+')
-        self.data['text_raw'] = self.data['text_raw'].apply(lambda x: re.sub(filter_inst, '', x))
+            "["
+            "\U0001F300-\U0001F64F"
+            "\U0001F680-\U0001F6FF"
+            "\u2600-\u2B55 \U00010000-\U0010ffff]+"
+        )
+        self.data["text_raw"] = self.data["text_raw"].apply(
+            lambda x: re.sub(filter_inst, "", x)
+        )
 
     def filter(self) -> None:
         """
@@ -56,12 +69,12 @@ class CommentFilter:
         :param save_name: 保存的文件名
         """
         # 去除text_raw为空的行
-        self.data = self.data[self.data['text_raw'].notnull()]
+        self.data = self.data[self.data["text_raw"].notnull()]
         self.data.to_csv(os.path.join(DATA_DIR, save_name), index=False)
 
 
-if __name__ == '__main__':
-    comment_filter = CommentFilter('test.csv')
+if __name__ == "__main__":
+    comment_filter = CommentFilter("test.csv")
     comment_filter.cn_emoji_filter()
     comment_filter.symbol_emoji_filter()
-    comment_filter.save_filtered('filtered_test.csv')
+    comment_filter.save_filtered("filtered_test.csv")
