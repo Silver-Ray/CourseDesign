@@ -6,8 +6,7 @@ import re
 from tqdm import tqdm
 import sys
 import os
-
-from typing import Dict
+from jsonpath_ng import parse
 
 # 将CourseDesign文件夹添加到系统路径中
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -27,7 +26,7 @@ class WeiboComment:
     ):
         if columns is None:
             columns = ["created_at", "id", "text_raw", "source"]
-        self.headers: Dict[str, str] = {
+        self.headers = {
             # 用户身份信息
             "cookie": cookie,
             # 防盗链
@@ -39,7 +38,8 @@ class WeiboComment:
         self.times: int = times
         self.sleep_time: float = sleep_time
         self.columns: list[str] = columns
-        self.url: str = "https://weibo.com/ajax/statuses/buildComments"
+        self.comment_req_url: str = "https://weibo.com/ajax/statuses/buildComments"
+        self.post_req_url: str = "https://weibo.com/ajax/statuses/show"
         self.data: DataFrame = pd.DataFrame(columns=self.columns)
         self.data_folder: str = data_folder
 
@@ -57,12 +57,13 @@ class WeiboComment:
         params: dict = {
             "flow": 0,
             "is_reload": 1,
-            "id": mid,  # 评论的微博id
+            "id": mid,  # 评论的微博由原始id转换为int型
             "is_show_bulletin": 2,
             "is_mix": 0,
             "max_id": 0,  # 评论的起始id
             "count": 20,
             "uid": user_id,  # 微博博主的用户id
+            "mid": mid_raw,  # 评论的微博原始id
         }
         return params
 
@@ -75,12 +76,12 @@ class WeiboComment:
             for _ in tqdm(range(self.times), desc="Fetching comments"):
                 try:
                     response = session.get(
-                        url=self.url, headers=self.headers, params=params
+                        url=self.comment_req_url, headers=self.headers, params=params
                     )
                     response.raise_for_status()
                     json_data = response.json()
                 except requests.RequestException as e:
-                    print(f"Request failed: {e}")
+                    print(f"Request failed in getting comment: {e}")
                     continue
 
                 try:
@@ -109,6 +110,44 @@ class WeiboComment:
             os.makedirs(path)
         file_name = os.path.join(path, file_name)
         self.data.to_csv(file_name, index=False, encoding="utf-8-sig")
+
+    def get_post(self) -> dict:
+        """
+        获取微博正文内容，包括内容、点赞数、评论数、转发数
+        :return: 微博正文内容
+        """
+        mid_raw = self.get_url_param()["mid"]
+        params: dict = {
+            "locale": "zh-CN",
+            "isGetLongText": "True",
+            "id": mid_raw,
+        }
+        try:
+            post = requests.get(self.post_req_url, headers=self.headers, params=params)
+            post_json = post.json()
+            post.close()
+        except requests.RequestException as e:
+            print(f"Request failed in getting post: {e}")
+            return {}
+        content = [match.value for match in parse("$..content").find(post_json)][0]
+        name = [match.value for match in parse("$..screen_name").find(post_json)][0]
+        likes = [match.value for match in parse("$..attitudes_count").find(post_json)][
+            0
+        ]
+        comment_num = [
+            match.value for match in parse("$..comments_count").find(post_json)
+        ][0]
+        repost_num = [
+            match.value for match in parse("$..reposts_count").find(post_json)
+        ][0]
+        post_data = {
+            "content": content,
+            "name": name,
+            "likes": likes,
+            "comment_num": comment_num,
+            "repost_num": repost_num,
+        }
+        return post_data
 
 
 if __name__ == "__main__":
