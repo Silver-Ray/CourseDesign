@@ -101,6 +101,7 @@ class WeiboComment:
                 )
                 params["max_id"] = json_data["max_id"]
                 sleep(self.sleep_time)
+            self.data.dropna().reset_index(drop=True)
 
     def save_comment(self, file_name: str) -> None:
         path = os.path.join(
@@ -129,7 +130,12 @@ class WeiboComment:
         except requests.RequestException as e:
             print(f"Request failed in getting post: {e}")
             return {}
-        content = [match.value for match in parse("$..content").find(post_json)][0]
+        content_matches = [match.value for match in parse("$..content").find(post_json)]
+        content = (
+            content_matches[0]
+            if content_matches
+            else [match.value for match in parse("$..text_raw").find(post_json)][0]
+        )
         name = [match.value for match in parse("$..screen_name").find(post_json)][0]
         likes = [match.value for match in parse("$..attitudes_count").find(post_json)][
             0
