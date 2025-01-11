@@ -1,0 +1,192 @@
+[
+  {
+    "province": "北京",
+    "happiness": "0.2477",
+    "sadness": "0.2018",
+    "like": "0.1651",
+    "anger": "0.1009",
+    "fear": "0.1009",
+    "surprise": "0.0826",
+    "disgust": "0.1009"
+  },
+  {
+    "province": "天津",
+    "happiness": "0.2093",
+    "sadness": "0.3226",
+    "like": "0.1382",
+    "anger": "0.1605",
+    "fear": "0.1159",
+    "surprise": "0.1159",
+    "disgust": "0.1376"
+  },
+  {
+    "province": "河北",
+    "happiness": "0.2424",
+    "sadness": "0.2424",
+    "like": "0.1616",
+    "anger": "0.1212",
+    "fear": "0.1010",
+    "surprise": "0.1010",
+    "disgust": "0.1010"
+  },
+  {
+    "province": "山西",
+    "happiness": "0.2333",
+    "sadness": "0.2911",
+    "like": "0.1567",
+    "anger": "0.1456",
+    "fear": "0.1111",
+    "surprise": "0.1111",
+    "disgust": "0.1111"
+  },
+  {
+    "province": "内蒙古",
+    "happiness": "0.1667",
+    "sadness": "0.3333",
+    "like": "0.1111",
+    "anger": "0.1667",
+    "fear": "0.1111",
+    "surprise": "0.1111",
+    "disgust": "0.1667"
+  },
+  {
+    "province": "辽宁",
+    "happiness": "0.2093",
+    "sadness": "0.3226",
+    "like": "0.1382",
+    "anger": "0.1605",
+    "fear": "0.1159",
+    "surprise": "0.1159",
+    "disgust": "0.1376"
+  },
+  {
+    "province": "吉林",
+    "happiness": "0.1250",
+    "sadness": "0.3250",
+    "like": "0.0800",
+    "anger": "0.1600",
+    "fear": "0.1000",
+    "surprise": "0.1000",
+    "disgust": "0.1600"
+  },
+  {
+    "province": "黑龙江",
+    "happiness": "0.1224",
+    "sadness": "0.7273",
+    "like": "0.0808",
+    "anger": "0.3636",
+    "fear": "0.1818",
+    "surprise": "0.1818",
+    "disgust": "0.3636"
+  },
+  {
+    "province": "上海",
+    "happiness": "0.2424",
+    "sadness": "0.2424",
+    "like": "0.1616",
+    "anger": "0.1212",
+    "fear": "0.1010",
+    "surprise": "0.1010",
+    "disgust": "0.1010"
+  },
+  {
+    "province": "江苏",
+    "happiness": "0.2121",
+    "sadness": "0.2626",
+    "like": "0.1414",
+    "anger": "0.1313",
+    "fear": "0.1010",
+    "surprise": "0.1010",
+    "disgust": "0.1010"
+  },
+  {
+    "province": "浙江",
+    "happiness": "0.2020",
+    "sadness": "0.2828",
+    "like": "0.1212",
+    "anger": "0.1414",
+    "fear": "0.1010",
+    "surprise": "0.1010",
+    "disgust": "0.1414"
+  },
+  {
+    "province": "安徽",
+    "happiness": "0.2727",
+    "sadness": "0.2222",
+    "like": "0.1818",
+    "anger": "0.1111",
+    "fear": "0.1111",
+    "surprise": "0.0909",
+    "disgust": "0.1111"
+  },
+  {
+    "province": "福建",
+    "happiness": "0.1250",
+    "sadness": "0.3250",
+    "like": "0.0800",
+    "anger": "0.1600",
+    "fear": "0.1000",
+    "surprise": "0.1000",
+    "disgust": "0.1600"
+  },
+  {
+    "province": "江西",
+    "happiness": "0.2093",
+    "sadness": "0.3226",
+    "like": "0.1382",
+    "anger": "0.1605",
+    "fear": "0.1159",
+    "surprise": "0.1159",
+    "disgust": "0.1376"
+  },
+  {
+    "province": "山东",
+    "happiness": "0.2424",
+    "sadness": "0.2424",
+    "like": "0.1616",
+    "anger": "0.1212",
+    "fear": "0.1010",
+    "surprise": "0.1010",
+    "disgust": "0.1010"
+  },
+  {
+    "province": "河南",
+    "happiness": "0.1667",
+    "sadness": "0.3333",
+    "like": "0.1111",
+    "anger": "0.1667",
+    "fear": "0.1111",
+    "surprise": "0.1111",
+    "disgust": "0.1667"
+  },
+  {
+    "province": "湖北",
+    "happiness": "0.2121",
+    "sadness": "0.2626",
+    "like": "0.1414",
+    "anger": "0.1313",
+    "fear": "0.1010",
+    "surprise": "0.1010",
+    "disgust": "0.1010"
+  },
+  {
+    "province": "湖南",
+    "happiness": "0.2020",
+    "sadness": "0.2828",
+    "like": "0.1212",
+    "anger": "0.1414",
+    "fear": "0.1010",
+    "surprise": "0.1010",
+    "disgust": "0.1414"
+  },
+  {
+    "province": "广东",
+    "happiness": "0.2424",
+    "sadness": "0.2424",
+    "like": "0.1616",
+    "anger": "0.1212",
+    "fear": "0.1010",
+    "surprise": "0.1010",
+    "disgust": "0.1010"
+  }
+]
